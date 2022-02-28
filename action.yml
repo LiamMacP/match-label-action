@@ -1,0 +1,15 @@
+name: 'Match Label Pull Request Action'
+description: 'Ensure that the pull request has the required labels'
+inputs:
+  labels:
+    description: 'the labels check on the Pull Request'
+    required: true
+  allOf:
+    description: 'check that all specified labels are on the Pull Request'
+    required: false
+outputs:
+  matchedLabels:
+    description: 'labels that match the pull request'
+runs:
+  using: 'node16'
+  main: 'dist/index.js'
