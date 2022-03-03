@@ -9,7 +9,7 @@
     "all": "npm run lint && npm run test && npm run build"
   },
   "keywords": [],
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "@actions/core": "^1.6.0",
     "@actions/github": "^5.0.0"
