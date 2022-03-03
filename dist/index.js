@@ -8320,9 +8320,7 @@ module.exports = { arrayIntersection };
 
 const github = __nccwpck_require__(5438);
 
-const getEventName = (context = github.context) => context.eventName;
-
-const isPullRequest = ({ eventName } = getEventName()) => {
+const isPullRequest = ({ eventName } = github.context) => {
   return eventName === "pull_request" || eventName === "pull_request_target";
 };
 

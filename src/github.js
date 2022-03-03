@@ -1,8 +1,6 @@
 const github = require("@actions/github");
 
-const getEventName = (context = github.context) => context.eventName;
-
-const isPullRequest = ({ eventName } = getEventName()) => {
+const isPullRequest = ({ eventName } = github.context) => {
   return eventName === "pull_request" || eventName === "pull_request_target";
 };
 
