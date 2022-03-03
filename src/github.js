@@ -5,7 +5,7 @@ const isPullRequest = ({ eventName } = github.context) => {
 };
 
 const getPullRequestLabels = ({ payload } = github.context) => {
-  return parsePullRequestLabels(payload.labels);
+  return parsePullRequestLabels(payload.pull_request?.labels);
 };
 
 const parsePullRequestLabels = (labels) => {
