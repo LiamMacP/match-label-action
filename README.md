@@ -9,7 +9,7 @@ Action that fails a GitHub job if specified labels are not present within Pull R
 | Input                                                               | Description                                                                 | Default               | Required |
 | ------------------------------------------------------------------- | --------------------------------------------------------------------------- | --------------------- | -------- |
 | [labels](#labels) | Labels that you want to validate with | | Yes |
-| [allOf](#allOf) | Enforce all labels are present | | No |
+| [mode](#mode) | Specifies the mode to use | any | No |
 
 
 ### Detailed inputs
@@ -20,11 +20,18 @@ A comma seperated list of values that you want to use within the action against 
 
 If this is set to empty - it fails the job.
 
-#### allOf
+#### mode
 
-Indicates whether the build should fail if any of the labels specified are not present within the build.
+Indicates the checking mode that's used against the Pull Request labels.
 
-Any [truthy](https://developer.mozilla.org/en-US/docs/Glossary/Truthy) can be used to trigger this check.
+Available options:
+* `all` - ensures all labels are present
+* `any` - ensures at least one matching label is present
+* `singular` - ensures only one matching label is present
+
+Any other value results in the default option taking effect.
+
+Default Option: `any`
 
 ### List of outputs
 
@@ -39,7 +46,7 @@ This action can only be triggered on the following events: `pull_request` and `p
 #### Block pull requests without labels
 
 ```yaml
-name: 'Block pull request without labels'
+name: 'Block pull request without single labels'
 on:
   pull_request:
     types: [ labeled, unlabeled, opened, reopened, synchronize ]
@@ -52,6 +59,7 @@ jobs:
       - uses: UKHomeOffice/match-label-action@main
         with:
           labels: minor,major,patch
+          mode: singular
 ```
 
 #### Output matched labels on merge
