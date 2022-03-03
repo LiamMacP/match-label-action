@@ -49,7 +49,7 @@ jobs:
     name: PR Label Checker
     runs-on: ubuntu-latest
     steps:
-      - uses: UKHomeOffice/match-label-action/pull-request-action@main
+      - uses: UKHomeOffice/match-label-action@main
         with:
           labels: minor,major,patch
 ```
@@ -68,7 +68,7 @@ jobs:
     runs-on: ubuntu-latest
     if: github.event.pull_request.merged == true && github.base_ref == 'main'
     steps:
-      - uses: UKHomeOffice/match-label-action/pull-request-action@main
+      - uses: UKHomeOffice/match-label-action@main
         with:
           labels: minor,major,patch
 ```
