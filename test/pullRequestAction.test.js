@@ -60,17 +60,66 @@ describe("run", () => {
     );
   });
 
-  test("allOf set with not all matching sets failed", async () => {
+  test("all mode set with not all matching sets failed", async () => {
     core.getInput = jest
       .fn()
       .mockReturnValueOnce("test1,test4") // labels Input
-      .mockReturnValueOnce("true"); // allOf Input
+      .mockReturnValueOnce("all"); // allOf Input
 
     await run();
 
     expect(core.setFailed).toHaveBeenCalledWith(
-      "Pull Request labels: test1,test2,test3 does not contain all the required labels: test1,test4"
+      "Pull Request does not contain all required labels"
     );
+  });
+
+  test("all mode set with all matching sets output", async () => {
+    core.getInput = jest
+      .fn()
+      .mockReturnValueOnce("test1,test2") // labels Input
+      .mockReturnValueOnce("all"); // allOf Input
+
+    await run();
+
+    expect(core.setFailed).not.toHaveBeenCalled();
+    expect(core.setOutput).toHaveBeenCalledWith("matchedLabels", "test1,test2");
+  });
+
+  test("singular mode set with more than one matching sets failed ", async () => {
+    core.getInput = jest
+      .fn()
+      .mockReturnValueOnce("test1,test2") // labels Input
+      .mockReturnValueOnce("singular"); // allOf Input
+
+    await run();
+
+    expect(core.setFailed).toHaveBeenCalledWith(
+      "Found multiple labels where a single label is required"
+    );
+  });
+
+  test("singular mode set with single matching sets output ", async () => {
+    core.getInput = jest
+      .fn()
+      .mockReturnValueOnce("test1,test4") // labels Input
+      .mockReturnValueOnce("singular"); // allOf Input
+
+    await run();
+
+    expect(core.setFailed).not.toHaveBeenCalled();
+    expect(core.setOutput).toHaveBeenCalledWith("matchedLabels", "test1");
+  });
+
+  test("matchedLabels output is set correctly with invalid mode defaults to any", async () => {
+    core.getInput = jest
+      .fn()
+      .mockReturnValueOnce("test1,test4") // labels Input
+      .mockReturnValueOnce("RANDOM_MODE"); // allOf Input
+
+    await run();
+
+    expect(core.setFailed).not.toHaveBeenCalled();
+    expect(core.setOutput).toHaveBeenCalledWith("matchedLabels", "test1");
   });
 
   test("matchedLabels output is set correctly with intersection", async () => {

@@ -4,8 +4,9 @@ inputs:
   labels:
     description: 'the labels check on the Pull Request'
     required: true
-  allOf:
-    description: 'check that all specified labels are on the Pull Request'
+  mode:
+    description: 'the type of matching you require - [all, any, singular]'
+    default: 'all'
     required: false
 outputs:
   matchedLabels:
