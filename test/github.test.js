@@ -25,31 +25,61 @@ describe("isPullRequest", () => {
 
 describe("getPullRequestLabels", () => {
   test("return empty array if input is undefined", async () => {
-    context.payload = { labels: undefined };
+    context.payload = {
+      // eslint-disable-next-line camelcase
+      pull_request: {
+        number: 1,
+        labels: undefined,
+      },
+    };
 
     expect(getPullRequestLabels(context)).toEqual([]);
   });
 
   test("return empty when input is not an array", async () => {
-    context.payload = { labels: "NotAnArray" };
+    context.payload = {
+      // eslint-disable-next-line camelcase
+      pull_request: {
+        number: 1,
+        labels: "NotAnArray",
+      },
+    };
 
     expect(getPullRequestLabels(context)).toEqual([]);
   });
 
   test("return lowercase single label when present in input", async () => {
-    context.payload = { labels: [{ name: "TEST" }] };
+    context.payload = {
+      // eslint-disable-next-line camelcase
+      pull_request: {
+        number: 1,
+        labels: [{ name: "TEST" }],
+      },
+    };
 
     expect(getPullRequestLabels(context)).toEqual(["test"]);
   });
 
   test("return single label when one lebel name is not present", async () => {
-    context.payload = { labels: [{ name: "test" }, {}] };
+    context.payload = {
+      // eslint-disable-next-line camelcase
+      pull_request: {
+        number: 1,
+        labels: [{ name: "test" }, {}],
+      },
+    };
 
     expect(getPullRequestLabels(context)).toEqual(["test"]);
   });
 
   test("return single label when one lebel name is undefined", async () => {
-    context.payload = { labels: [{ name: "test" }, { name: undefined }] };
+    context.payload = {
+      // eslint-disable-next-line camelcase
+      pull_request: {
+        number: 1,
+        labels: [{ name: "test" }, { name: undefined }],
+      },
+    };
 
     expect(getPullRequestLabels(context)).toEqual(["test"]);
   });
