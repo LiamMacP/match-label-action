@@ -1,8 +1,0 @@
-name: 'Lint'
-on:
-  pull_request:
-    types: [ opened, reopened, synchronize ]
-
-jobs:
-  test:
-    uses: UKHomeOffice/sas-github-workflows/.github/workflows/npm-lint.yml@fae67a70317d501bc443ff8e6da002bfa410cd76
