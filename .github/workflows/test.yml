@@ -5,4 +5,4 @@ on:
 
 jobs:
   test:
-    uses: UKHomeOffice/sas-github-workflows/.github/workflows/npm-test.yml@28f2b81a559160ddca5f04d65de7bbd56ba8dc6d
+    uses: UKHomeOffice/sas-github-workflows/.github/workflows/test-npm.yml@b648deb9fd44d875d959933645c0a24d84c77d28
