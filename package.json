@@ -2,6 +2,9 @@
   "name": "match-label-action",
   "version": "1.0.0",
   "description": "Ensure Pull Requests contain required labels",
+  "engines": {
+    "node": ">=20"
+  },
   "scripts": {
     "lint": "eslint",
     "test": "jest",

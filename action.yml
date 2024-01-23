@@ -12,5 +12,5 @@ outputs:
   matchedLabels:
     description: 'labels that match the pull request'
 runs:
-  using: 'node16'
+  using: 'node20'
   main: 'dist/index.js'
